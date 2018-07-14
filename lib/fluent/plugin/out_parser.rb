@@ -97,6 +97,7 @@ class Fluent::ParserOutput < Fluent::Output
       else
         if @keep_newlines
           @@lines_buffer[tag] << "\n"
+        end
         @@lines_buffer[tag] << line
       end
     else
