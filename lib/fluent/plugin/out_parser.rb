@@ -16,6 +16,7 @@ class Fluent::ParserOutput < Fluent::Output
   config_param :hash_value_field, :string, :default => nil
   config_param :suppress_parse_error_log, :bool, :default => false
   config_param :time_parse, :bool, :default => true
+  config_param :keep_newlines, :bool, :default => false
 
   attr_reader :parser
 
@@ -94,6 +95,8 @@ class Fluent::ParserOutput < Fluent::Output
         parse_singleline(tag, time, record, @@lines_buffer[tag])
         @@lines_buffer[tag] = line
       else
+        if @keep_newlines
+          @@lines_buffer[tag] << "\n"
         @@lines_buffer[tag] << line
       end
     else
